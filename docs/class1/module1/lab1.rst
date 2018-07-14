@@ -19,7 +19,7 @@ Variable Name   Variable Value
  emailid        Account name for each student (i.e. user01@f5lab.com)
 ============== ===========================================================
 
-Launce Remote Desktop Session to Linux
+Launch Remote Desktop Session to Linux
 --------------------------------------
 
 .. image:: ./images/1_ravello_portal1.png

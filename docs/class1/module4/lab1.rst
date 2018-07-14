@@ -20,7 +20,7 @@ Create a Virtual Server on Big-IP VE the Old Fashioned Way
 
 3. Note the BigipURL value. Copy and paste into a web browser. Be mindful of HTTPS: port 8443 for management!
 
-.. attention:: This lab makes use of insecure self-signed certificates. Bypass the warnings by clicking on "confirm Security Exception".
+.. attention:: This lab makes use of insecure self-signed certificates. Bypass the warnings by clicking on "Confirm Security Exception".
 
 .. image:: ./images/2_TLS_warning.png
   :scale: 50%
@@ -72,7 +72,7 @@ Create a Virtual Server on Big-IP VE the Old Fashioned Way
 +------------------------------------------+-------------------------------------------------------------------+
 | Health Monitors                          | http                                                              |
 +------------------------------------------+-------------------------------------------------------------------+
-| New Members                              | terraform output values of both web-server-0 and web-server-1     |
+| New Members                              | terraform output values of web-server-0 and web-server-1          |
 +------------------------------------------+-------------------------------------------------------------------+
 | Service Port                             | 80 / HTTP                                                         |
 +------------------------------------------+-------------------------------------------------------------------+
