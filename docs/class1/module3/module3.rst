@@ -1,11 +1,7 @@
-Extending and Securing your Cloud
-=================================
+F5 Networks AWS WAF Rules
+=========================
 
-This lab will use the Lab Environment created previously to explore other capabilities including
-
-* Service Discovery
-* Failover Across Availability Zones
-* Triggering an Auto Scale event
+This lab will use the lab environment created previously to protect our application with AWS WAF Rules.
 
 .. toctree::
    :maxdepth: 1

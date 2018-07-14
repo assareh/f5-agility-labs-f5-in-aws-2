@@ -1,80 +1,75 @@
-Verify a healthy F5 environment
--------------------------------
+Apply F5 Networks WAF Rules to an AWS Application Load Balancer
+---------------------------------------------------------------
 
-1. Run the handy lab-info command to quickly identify the IP addresses assigned to your environment.
+1. From the AWS Console, navigate to Services => Compute => EC2 => LOAD BALANCING => Load Balancers. In the search filter enter your username. You should see two load balancers. One named tf-alb-\* is your newly created AWS application load balancer. Highlight the 'Description' tab. Note Scheme: internate-facing, Type: application and the AWS WAF Web ACL: has no web acl applied. Preconfigured Web-ACLs are offered by F5, offer protection against common OWASP top 10 style attacks, and can be deployed on any ALB. Functionality is a small subset of market-leading F5 WAF running on a Big-IP VE.
 
-.. code-block:: bash
-
-   lab-info
-
-.. code-block:: bash
-
-   AWS Console
-    URL: https://f5agility2017.signin.aws.amazon.com/console?us-east-1
-   Username: user02@f5.io / Password: B4Agility2017X4Y
-   WAF ELB
-     URL: https://waf-user02f5io-1627564819.us-east-1.elb.amazonaws.com
-
-   BIG-IP Autoscale Instance: waf-user02f5io
-     MGMT IP:      52.207.200.169
-      STATUS:      MCPD is up, System Ready
-    MGMT URL:      https://52.207.200.169:8443
-         SSH:      ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -o ConnectTimeout=3 -i MyKeyPair-user02@f5.io.pem admin@52.207.200.169
-
-   Big-IP1: ha-user02f5io-vpc-b7b1c7ce
-     MGMT IP:      34.232.9.141
-      STATUS:      MCPD is up, System Ready
-    MGMT URL:      https://34.232.9.141
-         SSH:      ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -o ConnectTimeout=3 -i MyKeyPair-user02@f5.io.pem admin@34.232.9.141
-      VIP IP:      10.0.1.223
-   Elastic IP:     52.6.236.56
-
-   Big-IP2: ha-user02f5io-vpc-b7b1c7ce
-     MGMT IP:      34.195.89.147
-      STATUS:      MCPD is up, System Ready
-    MGMT URL:      https://34.195.89.147
-         SSH:      ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -o ConnectTimeout=3 -i MyKeyPair-user02@f5.io.pem admin@34.195.89.147
-      VIP IP:      10.0.2.238
-
-   web-az1.0: user02f5io
-     PRIVATE IP:   10.0.1.131
-
-   web-az2.0: user02f5io
-     PRIVATE IP:   10.0.2.219
-
-Sample output above. lab-info will quickly orient you around our deployment. All of the same information is available via the AWS Console, the lab-info script is here for convenience.
-
-    - We have an application behind an F5 autoscale WAF that can be reached by the WAF ELB URL.
-
-    - The web-az1.0 and webaz2.0 PRIVATE IP addresses will soon be configured as pool members for our Big-IP HA cluster.
-
-    - Big-IP1 and Big-IP2 are configured as a high availability cluster across two separate availability zones. Only the active Big-IP will have an Elastic IP address assigned. Configuration changes to the active unit will automatically propagate to the standby unit. During an outage, even one affecting an entire availability zone, the Elastic IP will 'float' over to the unit that is not affected.
-
-    - BIG-IP Autoscale Instance is a single NIC deployment WAF with the MGMT IP address identified.
-
-2. From the f5-super-netops container test out application behind the auto-scale waf is up. Replace the example https url with the one specific to your lab. See lab-info.
-
-.. code-block:: bash
-
-   curl -kI https://waf-user01f5io-499431932.us-east-1.elb.amazonaws.com
-
-
-.. code-block:: bash
-
-   HTTP/1.1 200 OK
-   Accept-Ranges: bytes
-   Content-Type: text/html
-   Date: Sat, 29 Jul 2017 15:50:12 GMT
-   Set-Cookie: TS01e70004=01eeb64b413ca1778c867b0174b4a4e8901d5361c37a2ef5634917272e2f6f9b77d14ed447d3903a5e45d1aeb723a0af78bd798f1a; Path=/
-   X-COLOR: a0bf37
-   Connection: keep-alive
-
-...The HTTP/1.1 200 OK status code is a sign that things went well. You can hit the example site behind the F5 WAF with a web browser.
-
-.. image:: ./images/waf-example-site.png
+.. image:: ./images/1_alb.png
   :scale: 50%
 
+2. Highlight the Listeners tab. A listener is ready to receive traffic on HTTPS: 443. A TLS Certificate was installed as part of our deployment and the ALB is terminating TLS. An AWS application load balander terminating TLS is a prerequisite for deploying WAF rules.
 
-We can now start configuring the Big-IPs to responsibly fulfill our part of the shared responsibility security model: https://aws.amazon.com/compliance/shared-responsibility-model/
+.. image:: ./images/2_alb_listener_https_443.png
+  :scale: 50%
 
-.. image:: https://d0.awsstatic.com/security-center/NewSharedResponsibilityModel.png
+3. From the AWS Console, navigate to Services => Security, Identity & Compliance => WAF & Shield.
+
+.. image:: ./images/3_aws_waf_shield.png
+  :scale: 50%
+
+4. In the left hand navigation pane, click on Marketplace. Prior to deploying F5 WAF Rules for AWS, you need to subscribe to the service and agree to the AWS subscription agreement. This has been done for you already. As of July 2018, F5 offers three collections of WAF rules:
+
+  - F5 Web Application CVE Signatures For AWS WAF
+
+  - F5 Bot Detection Signatures For AWS WAF
+
+  - AWS WAF - Web Exploits Rules by F5
+
+...read through the Details for a summary of the protection included in each category.
+
+.. image:: ./images/4_f5_waf_rules_marketplace.png
+  :scale: 50%
+
+5. In the left hand navigation pane, click on "Web ACLs" => "Create web ACL".
+
+6. Fill in the "Name web ACL" fields. The example screenshot is for user99. Carefully fill in the fields with your unique user details.
+
++------------------------------------------+-------------------------------------------------------------------+
+| Parameter                                | value                                                             |
++==========================================+===================================================================+
+| Web ACL name*                            | userXXwebacl (i.e user99webacl)                                   |
++------------------------------------------+-------------------------------------------------------------------+
+| CloudWatch metric name*                  | userXXwebacl (i.e user99webacl)                                   |
++------------------------------------------+-------------------------------------------------------------------+
+| Region*                                  | us-east-1                                                         |
++------------------------------------------+-------------------------------------------------------------------+
+| AWS resource to associate                | select your existing alb from the dropdown: tf-alb-userXXf5labcom |
++------------------------------------------+-------------------------------------------------------------------+
+
+...click Next.
+
+.. image:: ./images/5_name_web_acl.png
+  :scale: 50%
+
+7. Accept all defaults in Step 2: and click Next.
+
+8. Step 3: Select F5 Bot Detection Singatures, Default action "Allow all requests...', click on "Review and create".
+
+.. image:: ./images/6_create_rules.png
+  :scale: 50%
+
+9. Step 4: Assign your alb resource to use this web acl. Click "Confirm and create".
+
+.. image:: ./images/7_review_and_create.png
+  :scale: 50%
+
+10. From the AWS Console, navigate to Services => Compute => EC2 => LOAD BALANCING => Load Balancers. Highlight your alb. Confirm the AWS WAF WEb ACL: shows your web acl applied.
+
+11. Click the copy icon next to the DNS name.
+
+.. image:: ./images/8_web_acl_applied.png
+  :scale: 50%
+
+12. Connect from a browser via https to the dns name copied and confirm your application is still up but now protected against Bot Attacks!
+
+.. image:: ./images/9_alb_demo_site.png
+  :scale: 50%

@@ -1,84 +1,101 @@
-Troubleshooting Guide
-=====================
+Create a Virtual Server on Big-IP VE the Old Fashioned Way
+----------------------------------------------------------
 
-To help all students get past the first part of the lab, Walk through 2.1.1 - 2.1.6 in front of the class for all to see. Then leave your shared screen up on the monitor like this:
-
-.. image:: ./images/side-by-side.png
-  :scale: 25%
-
-terraform apply fails
----------------------
-
-If a student's 'terraform apply' operation fails, the best thing to do is to shutdown the docker container, assign a new student number, and start all over. This is always a sign that we've reached the AWS API limits because of too many simultaneous labs coming on line at once and AWS is throttling: https://forums.aws.amazon.com/thread.jspa?messageID=720883
-
-For example, if tragically, user20@f5demo.com failed to complete 'terraform apply'
-
-CTRL+p+q to exit the container, then stop and remove the container and start fresh as user120@f5demo.com
+1. From the Linux terminal tab with the ssh session open to the Super-NetOps docker container:
 
 .. code-block:: bash
 
-   docker stop $(docker ps -lq)
-   docker rm $(docker ps -lq)
+   terraform output
 
-   docker run -p 8080:80 -p 2222:22 -it -e SNOPS_AUTOCLONE=0 f5devcentral/f5-super-netops-container:base
+...Note both the Bigip1subnet1Az1SelfEipAddress and BigipUrl values.
 
-   export emailid=user120@f5demo.com
-   ...
-
-...continue with Task 2.1.4 from here.
-
-emailid format
---------------
-If the student accidentally deviates from the emailid format it's no big deal, as long as it's unique and a standard email format <name@domain.suffix> there will be no problem. If the student forgets the emailid you can always verify from the working directory:
+2. Big-IP Virtual Edition appliances deployed to public cloud are only accessible via ssh key. You have to create an admin account and password before you can configure this Big-IP from the config utility (Web UI). Run the password-reset script to create an admin account. Replace x.x.x.x with the terraform output value of Bigip1subnet1Az1SelfEipAddress.
 
 .. code-block:: bash
 
-  basename `ls *.emailid` .emailid
+   password-reset x.x.x.x
 
-Wrong shortUrl
---------------
-If the student enters the wrong shortUrl, the start script will install all of the prerequisite software but eventually abort with error message: "Invalid shortUrl.  Aborting." In this case you need only export shortUrl= with the right value and re-run the start script. For example if the valid shortUrl=seattle-dumplings.
+.. image:: ./images/1_reset_password.png
+  :scale: 50%
 
-.. code-block:: bash
+3. Note the BigipURL value. Copy and paste into a web browser. Be mindful of HTTPS: port 8443 for management!
 
-  export shortUrl=seattle-dumplings
-  source ./start
+.. attention:: This lab makes use of insecure self-signed certificates. Bypass the warnings by clicking on "confirm Security Exception".
 
-I don't see any instances in AWS console
-----------------------------------------
-Student is in the wrong region. If this happens more than once (this gotcha is in the documentation) you can take the opportunity to explain to the class: regions vs. availability zones.
+.. image:: ./images/2_TLS_warning.png
+  :scale: 50%
 
-Accidently exit and stop the super-netops container
----------------------------------------------------
-If the student accidentally exits and as a result stops the super-netops docker container, they will have to restart and attach to the super-netops container. From the Linux host:
+4. Login to you F5 Big-IP VE running in AWS. User your emailid as Username and the shortUrl as Password.
 
-.. code-block:: bash
-   
-  docker start $(docker ps -lq)
-  docker attach $(docker ps -lq)
-  source ~/.profile
+.. image:: ./images/3_waf_config_login_8443.png
+  :scale: 50%
 
-...or alternatively you can start the super-netops container, but instead of attaching to the container console, you can ssh to the container. This makes it impossible to accidentally stop the container.
+5. From the Linux terminal tab with the ssh session open to the Super-NetOps docker container:
 
 .. code-block:: bash
 
-  docker start $(docker ps -lq)
-  ssh -p 2222 snops@localhost
-  default
-  su -
-  default
+   terraform output
 
-2.3.5 Autoscale WAF not triggering
-----------------------------------
-This is difficult to calibrate. You can have fun and ensure success by asking multiple students to use the apache-bench tool (ab) to gang up on a single WAF instance instead of each student trying to trigger auto-scale in their own environment. You can then show the auto scale event on your shared screen.
+...Note the Bigip1ExternalInterfacePrivateIp value and both web-server-# values. Bigip1ExternalInterfacePrivateIp will be the IP address of your virtual server on the Big-IP VE and the web-server-#'s will be the pool members.
 
-Test lab and confirm AWS limits beforehand
-------------------------------------------
-https://github.com/TonyMarfil/aws-lab-tools
+.. image:: ./images/4_terraform_output_for_virtual_server_values.png
+  :scale: 50%
 
-Misc.
------
+6. From the Big-IP config utilitty (Web UI), navigate to Local Traffic => Virtual Servers => Create new virtual server.
 
-+ Login to existing bucket and cleanup.
++------------------------------------------+-------------------------------------------------------------------+
+| Parameter                                | value                                                             |
++==========================================+===================================================================+
+| Name                                     | app1                                                              |
++------------------------------------------+-------------------------------------------------------------------+
+| Destination Address/Mask                 | terraform output value of Bigip1ExternalInterfacePrivateIp        |
++------------------------------------------+-------------------------------------------------------------------+
+| Service Port                             | 443 / HTTPS                                                       |
++------------------------------------------+-------------------------------------------------------------------+
+| HTTP Profile                             | http                                                              |
++------------------------------------------+-------------------------------------------------------------------+
+| SSL Profile (Client)                     | clientssl-secure                                                  |
++------------------------------------------+-------------------------------------------------------------------+
+| Default Pool                             |  \+ to create pool1                                               |
++------------------------------------------+-------------------------------------------------------------------+
 
-+ BigIP not coming up licensed.
+.. image:: ./images/5_virtual_server_part1.png
+  :scale: 50%
+
+.. image:: ./images/6_virtual_server_part2.png
+  :scale: 50%
+
++------------------------------------------+-------------------------------------------------------------------+
+| Parameter                                | value                                                             |
++==========================================+===================================================================+
+| Name                                     | pool1                                                             |
++------------------------------------------+-------------------------------------------------------------------+
+| Health Monitors                          | http                                                              |
++------------------------------------------+-------------------------------------------------------------------+
+| New Members                              | terraform output values of both web-server-0 and web-server-1     |
++------------------------------------------+-------------------------------------------------------------------+
+| Service Port                             | 80 / HTTP                                                         |
++------------------------------------------+-------------------------------------------------------------------+
+
+Click Finished to complete the creation of Pool pool1.
+
+.. image:: ./images/7_pool.png
+  :scale: 50%
+
+Click Finished to complete the creation of Virtual Server app1.
+
+.. image:: ./images/8_finished.png
+  :scale: 50%
+
+7. From the Linux terminal tab with the ssh session open to the Super-NetOps docker container:
+
+.. code-block:: bash
+
+   terraform output
+
+...Note the BigipUrl value. Change the port from 8443 to 443 and open in a web browser. Your Big-IP is protecting traffic to/from our sample application.
+
+.. image:: ./images/9_https_to_app1.png
+  :scale: 50%
+
+Single NIC / Single-IP deployments work well in public cloud topologies. In this lab, we connected to the Big-IP over a single IP address to 1. ssh and create an admin account, 2. https over port 8443 for config management and 3. https 443 to process traffic.

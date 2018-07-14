@@ -26,15 +26,15 @@ Launce Remote Desktop Session to Linux
   :scale: 50%
 
 - Look for ubuntu1. Note the username / password. Click on *rdp* link. Download the rdp file. Click on the rdp file to launch a Remote Desktop Session to your client.
-- Alternatively, you can copy and paste the ubunut1 IP address into your Remote Desktop client to modify settings.
+- Alternatively, you can copy and paste the ubutu1 IP address into your Remote Desktop client to modify settings.
     - Local Resources => Keyboard => Apply Windows key combinations: On the remote computer. This will allow you to quickly toggle between windows inside the Remote Desktop Session.
 - Login with username / password
 
 .. image:: ./images/2_rdp_logon.png
   :scale: 50%
 
-SSH to the F5-Super-NetOps (snops) docker container
----------------------------------------------------
+SSH to the F5-Super-NetOps docker container
+-------------------------------------------
 
 From the Linux desktop, click on the upper-left-hand corner "Activities" to reveal the application Dock.
 
@@ -155,21 +155,13 @@ This is the TL;DR version of the steps completed.
 When you clone the git repository, you are pulling down a current version of the files you need to get started. These files are hosted on Github, the most popular online revision control repository, and include:
 
 - Onboarding scripts that create your AWS account and other prerequisites: *f5-super-netops-install.sh*, *addUser.sh*, *export.sh*.
-- all of the terraform configuration files--a declarative, comprehensive representation of our entire application stack:
 
-	*main.tf* - Every terraform configuration has a main.tf. This contains all of the AWS specific (non-F5) environment configuration, including web instances
-
-	*f5-cloudformation*.tf files - A terraform file that takes the officially supported CloudFormation template hosted at:
-
-	https://s3.amazonaws.com/f5-cft/f5-existing-stack-bigiq-1nic-bigip.template
-
-	...and stuffs all of the prerequisite parameters so we don't have to do it manually.
-
-	*outputs.tf* - Any variable in the outputs.tf file can be rendered to the console with 'terraform output' and is exposed to other command line tools.
-
-	*vars.tf* - Variables for terraform.
-
-- Handy utilities to help move the lab along with minimum fuss: *password-reset*.
+    - all of the terraform configuration files--a declarative, comprehensive representation of our entire application stack:
+    - *main.tf* - Every terraform configuration has a main.tf. This contains all of the AWS specific (non-F5) environment configuration, including web instances
+    - *f5-cloudformation*.tf files - A terraform file that takes the officially supported CloudFormation template hosted at: https://s3.amazonaws.com/f5-cft/f5-existing-stack-bigiq-1nic-bigip.templat and stuffs all of the prerequisite parameters so we don't have to do it manually.
+    - *outputs.tf* - Any variable in the outputs.tf file can be rendered to the console with 'terraform output' and is exposed to other command line tools.
+    - *vars.tf* - Variables for terraform.
+    - Handy utilities to help move the lab along with minimum fuss: *password-reset*.
 
 The start script takes care of all of the prerequisites to standing up an AWS environment. Precisely:
 

@@ -1,120 +1,102 @@
 Explore the F5 / AWS lab environment
 ------------------------------------
 
-1. Use the alias aws console link, email address, and shortUrl as password to login to the aws console.
+1. From the Linux desktop, click "Applications" in the upper-left-hand corner to launch the Dock.
 
-.. image:: ./images/aws-console-login1.png
+.. image:: ./images/0_terminal.png
   :scale: 50%
 
-.. image:: ./images/aws-console-login2.png
-  :scale: 50%
-
-https://f5agility2017.signin.aws.amazon.com/console?region=ap-southeast-1
+2. Launch the Firefox browser. Click on the bookmark for the Amazon AWS Console link in the upper-left-hand corner. Login with emailid as the username and shortUrl as password.
 
 +--------------------------+------------------------------------------------------+
 | Parameter                | value                                                |
 +==========================+======================================================+
-| Account:                 | f5agility2017                                        |
+| Account:                 | f5agility2018                                        |
 +--------------------------+------------------------------------------------------+
-| User Name:               | userxx@f5demo.com, change xx to your student number  |
+| User Name:               | userxx@f5lab.com, change xx to your student number   |
 +--------------------------+------------------------------------------------------+
 | Password:                | sames as shortUrl / echo $shortUrl                   |
 +--------------------------+------------------------------------------------------+
 
-
-2. Navigate to Services => Networking & Content Delivery => VPC. Click on # VPCs. In the search field type your user account name. You should see your VPC details. VPC stands for virtual private cloud, this is the slice of the amazon cloud that has been dedicated for your lab environment.
-
-3. In the upper right-hand corner, ensure you are in the correct region. For example: N. Virginia region (us-east-1) is the default.
-
-.. image:: ./images/aws-console-vpc.png
+.. image:: ./images/1_aws_console_login.png
   :scale: 50%
 
-4. Navigate to Services => Compute => EC2 => INSTANCES => Instances. The web application is hosted on webaz1.0 in one availability zone and webaz2.0 in another availability zone. Highlight web-az1.0, in the "Description" tab below note the availability zone. Highlight web-az2.0 and do the same. Select the Tags tab for web-az1.0 and web-az2.0. We will use these tags later in the lab to autodiscover these instances as pool members from a Big-IP VE.
+.. attention::
 
-.. image:: ./images/aws-console-ec2-az.png
+   In the upper right-hand corner, ensure you are in the correct region. For example: N. Virginia region (us-east-1) is the default.
+
+3. Navigate to Services => Management Tools => CloudFormation. In the search field type your user account name (i.e user99). You should see your CloudFormation deployment details.
+
+- Click the Events tab. The F5 CloudFormation template records every succesfull or failed event here. Look for the final "CREATE_COMPLETE" at the top. This indicates all went well.
+
+.. image:: ./images/2_cft_events.png
   :scale: 50%
 
-5. Three Big-IP virtual editions are running:
+- Click on the Parameters tab. We used terraform to stuff all of the necesary parameters into the CloudFormation template. Here you can see the CloudFormation parameter name and value provided.
 
-   - BIGIP1 and BIGIP2 are in a cross-availability zone cluster that was deployed via a CloudFormation template.
-   - BIG-IP Autoscale Instance is the first F5 web application firewall provisioned for Application Security Manager with a low, medium, or high starter policy enabled. Depending on configurable traffic thresholds the WAF will scale from 1 to N instances. These thresholds are controlled via an auto scale group policy.
+.. image:: ./images/3_cft_parameters.png
+  :scale: 50%
+
+- Click on the Outputs tab. When CloudFormation deployments complete successfully, they can export key value pairs you can use to integrate other automation tools. For example, you can query these CloudFormation outputs to find out to which region, availability zone, private IPs, public IPs your F5 Big-IP Virtual Edition instance has been assigned.
+
+.. image:: ./images/5_cft_resources.png
+  :scale: 50%
+
+- Click on the Resources tab. Here we see a map of exactly which AWS resources were deployed from the CloudFormation template.
+
+.. image:: ./images/5_cft_resources.png
+  :scale: 50%
+
+4. Navigate to Services => Compute => EC2 => INSTANCES => Instances. Enter your username in the search field (i.e. user99). The web application is hosted on webaz1.0 in one availability zone and webaz2.0 in another availability zone. Highlight web-az1.0. In the "Description" tab below, note the availability zone. Highlight web-az2.0 and do the same.
+
+.. image:: ./images/6_aws_console_search_filter.png
+  :scale: 50%
+
+5. A single Big-IP Virtual Edition is running on an AWS m4.xlarge intance. Highlight your Big-IP, expand the "Description" tab below. Your instance details are here including:
+
+   - Instance type
+   - Elastic IP
+   - Key pair name:
+   - Private IPs
+   - VPC ID
+   - Network interface
+
+.. image:: ./images/7_ec2_description.png
+  :scale: 50%
+
+.. attention::
+
+   We deployed a single-NIC Big-IP. A curious difference from traditional datacenter two and three NIC deployments is that single-NIC cloud instances will often share the same IP address for management, self-ip and virtual server. In our deployment: tcp 22 to ssh to the self-ip for management, tcp 8443 to https to the config utility for management, and 80, 443 will evenutally be the virtual server / listener for application traffic.
 
 6.  Cloud-init. Version 13 of Big-IP supports cloud-init. Right click on BIGIP1 => Instance Settings => View/Change User Data. Cloud-init is the industry standard way to inject commands into an F5 cloud image to automate all aspects of the on-boarding process: https://cloud-init.io/.
 
-.. image:: ./images/aws-console-cloud-init1.png
+.. image:: ./images/8_f5_user_data.png
   :scale: 50%
 
-.. image:: ./images/aws-console-cloud-init2.png
+7. Services => Compute => EC2 => LOAD BALANCING => Load Balancers. In the search filter enter your username. You should see two load balancers. One named tf-alb-\* is your newly created AWS application load balancer. Highlight the 'Description' tab. Note Scheme: internate-facing, Type: application and the AWS WAF Web ACL: has no web acl applied.
+
+.. image:: ./images/9_alb.png
   :scale: 50%
 
-7. Services => Compute => EC2 => AUTO SCALING => Auto Scaling Groups.
-   - In the search filter enter your username. Highlight the waf... auto scaling group.
-   - Under the "Scaling Policies" tab below review the policy for scaling up and scaling down.
+- Highlight the Listeners tab. A listener is ready to receive traffic on HTTPS: 443. A TLS Certificate was installed as part of our deployment and the ALB is terminating TLS.
 
-8. Services => Compute => EC2 => LOAD BALANCING => Load Balancers. In the search filter enter your username. You should see your newly created elastic load balancers running.
-
-   - Choose the tf-elb-userXX load balancer and highlight the "Instances" tab below. This is the load balancer that is in front of your simple web application hosted on web-az1.0 and web-az2.0.
-   - Choose the waf-userXX load balancer and highlight the "Instances" tab below. This is the load balancer that is in front of your F5 web application firewall(s).
-
-.. image:: ./images/aws-console-elb1.png
-  :scale: 50%
-.. image:: ./images/aws-console-elb2.png
+.. image:: ./images/10_alb_listener_https_443.png
   :scale: 50%
 
-9. GitHub. Fully supported F5 Networks Solutions are hosted in the official F5 Networks GitHub repository:
+- Select the other load-balancer named tf-elb-asg-\*. This is a standard TCP load balancer. Note Type: classic. This load-balancer is not in service yet.
 
-   - https://github.com/f5networks
-   - We are running the lab from the f5-super-devops container: https://github.com/f5devcentral/f5-super-netops-container
-
-   - AWS CloudFormation templates: https://github.com/F5Networks/f5-aws-cloudformation
-
-   - Native template formats are also available for Microsoft Azure (arm templates): https://github.com/F5Networks/f5-azure-arm-templates
-
-   - Native template formats are also available for Google Cloud Platform (gdm templates): https://github.com/F5Networks/f5-google-gdm-templates
-
-.. image:: ./images/f5-github.png
+.. image:: ./images/11_elb_for_bigip_ce.png
   :scale: 50%
 
-10. CloudFormation Templates mock walk-through. CloudFormation templates are the AWS declarative method to deploy full application stacks to AWS.
+8. Navigate to Services => Networking & Content Deliver => VPC. click on VPCs. Enter your username in the search filter (i.e. user99). This is the Virtual Private Cloud (VPC) that has been dedicated to your lab environment.
 
-F5 Virtual Edition can be deployed via CloudFormation Templates and are an F5 officially supported deployment method.
+- Select the Summary tab. You can see the IPv4 CIDR assigned is 10.0.0.0/16. Your on-premises datacenter has been assigned 10.1.0.0/16 to not conflict.
 
-During the previous lab you deployed via Terraform the following F5 CFT Solution.
-
-- "Deploying the BIG-IP in AWS - Clustered 2-NIC across Availability Zones" which supports automatic Big-IQ Licensing (we opted to use hourly billing in the previous lab):
-
-https://github.com/F5Networks/f5-aws-cloudformation/tree/master/supported/cluster/2nic/across-az-ha
-
-.. image:: ./images/aws-2nic-cluster-across-azs.png
+.. image:: ./images/12_vpc.png
   :scale: 50%
 
-...you also deployed:
+9. From the VPC Dashboard, Click on VPN Connections in the left-hand navigation pane. Enter your username in the search filter (i.e. user99). A virtual Private Gateway has been created and attached to your VPC. We will later use this VPN Gateway to create and IPSec tunnel between our on-premises environment and our AWS VPC.
 
-- Auto scaling the BIG-IP VE Web Application Firewall in AWS:
-
-https://github.com/F5Networks/f5-aws-cloudformation/tree/master/supported/solutions/autoscale/waf/
-
-.. image:: ./images/config-diagram-autoscale-waf.png
+.. image:: ./images/13_vpn_gateway.png
   :scale: 50%
-
-11. Go to https://github.com/F5Networks/f5-aws-cloudformation/tree/master/supported/cluster/2nic/across-az-ha.
-
-12. Scroll to and then click the "Launch Stack" icon for "Hourly..."
-
-.. image:: ./images/cft1.png
-  :scale: 50%
-
-13. In the "Create Stack" screen, click "Next".
-
-.. image:: ./images/cft2.png
-  :scale: 50%
-
-14. This will render the template from within the AWS console. Fill in the first few parameters by choosing from the drop-down menus. The options present were created previously via Terraform. No need to complete the CloudFormation stack here. Terraform has already stuffed these parameters and fired off the completed CloudFormation template. Think about how many steps we've saved by fully automating the solution. Scroll down and click "Cancel"
-
-.. image:: ./images/cft3.png
-  :scale: 50%
-
-15. Track things are going well in the AWS management console: Services => Management Tools => CloudFormation template. When done, both of your deployed CloudFormation templates will be Status: CREATE_COMPLETE. Here you can expand and review the steps or troubleshoot if something went wrong.
-
-.. image:: ./images/aws-console-cloudformation.png
-  :scale: 50%
+  

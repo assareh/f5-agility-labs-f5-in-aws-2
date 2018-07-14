@@ -1,7 +1,7 @@
-Troubleshooting Guide
-=====================
+Create a Virtual Server to Protect your Web Applications
+========================================================
 
-Troubleshooting guide covers some known issues and common scenarios where thing derail and how to get back on track.
+Create a virtual server.
 
 .. toctree::
    :maxdepth: 1
