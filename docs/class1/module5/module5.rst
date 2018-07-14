@@ -1,7 +1,7 @@
-F5 Networks IPSec VPN to AWS
-============================
+Declarative Virtual Server with Application Services Extension 3
+================================================================
 
-For environments exploring hybrid cloud deployments, an on-prem physical or virtual F5 Big-IP is the ideal platform to establish a VPN connection to AWS. 
+Create a virtual server the newfangled way.
 
 .. toctree::
    :maxdepth: 1
