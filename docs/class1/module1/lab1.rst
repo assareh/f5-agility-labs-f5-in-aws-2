@@ -5,10 +5,7 @@ Connecting to the Lab
 
 - Though the environment runs on a shared AWS account, every student will build and work in a dedicated AWS VPC.
 - For this lab, a Linux Remote Desktop jump host will be provided as a consistent starting point.
-
-See :ref:`Connecting to the Lab Environment` for directions on connecting to the lab environment.
-
-A convenient way to work through the lab is to split your screen in half: left for the lab environment and right for the lab guide.
+- A convenient way to work through the lab is to split your screen in half: left for the lab environment and right for the lab guide.
 
 Lab Variables
 -------------
@@ -25,30 +22,28 @@ Variable Name   Variable Value
 Launce Remote Desktop Session to Linux
 --------------------------------------
 
-.. image:: /_static/1_ravello_portal1
+.. image:: ./images/1_ravello_portal1.png
   :scale: 50%
 
 - Look for ubuntu1. Note the username / password. Click on *rdp* link. Download the rdp file. Click on the rdp file to launch a Remote Desktop Session to your client.
 - Alternatively, you can copy and paste the ubunut1 IP address into your Remote Desktop client to modify settings.
-- Local Resources => Keyboard => Apply Windows key combinations: On the remote computer. This will allow you to quickly toggle between windows inside the Remote Desktop Session.
+    - Local Resources => Keyboard => Apply Windows key combinations: On the remote computer. This will allow you to quickly toggle between windows inside the Remote Desktop Session.
 - Login with username / password
 
-.. image:: /_static/2_rdp_logon
+.. image:: ./images/2_rdp_logon.png
   :scale: 50%
 
 SSH to the F5-Super-NetOps (snops) docker container
 ---------------------------------------------------
 
-Click on the upper-left-hand corner "Activities" to reveal the application Dock.
+From the Linux desktop, click on the upper-left-hand corner "Activities" to reveal the application Dock.
 
 Click to launch the terminal application.
 
-.. image:: /_static/3_terminal
+.. image:: ./images/3_terminal.png
   :scale: 50%
 
-From the terminal, invoke the 'snops' alias to ssh to the f5-super-netops docker container. Substitute user (su) to root.
-
-Cut and past the command below to accomplish the steps above.
+From the terminal, invoke the 'snops' command alias to ssh to the f5-super-netops docker container. Substitute user (su) to root.
 
 .. code-block:: bash
 
@@ -57,18 +52,19 @@ Cut and past the command below to accomplish the steps above.
    su -
    default
 
-.. image:: /_static/4_snops_login
+.. image:: ./images/4_snops_login.png
   :scale: 50%
 
 Set Variables
 --------------
 
-The following will store the lab variables that will be used later in the lab.
-
 Export your student account and short URL path variables.
-Your student account will be used to create an AWS console login and provide unique names for infrastructure that you create in the shared account. The short URL path will be used to grant access to the shared AWS account both via the AWS API and as the password for the AWS web console. Replace the emailid and shortUrl values below with the student account name and short URL assigned to you at the start of the lab.
 
-Copy and paste the commands below to accomplish the steps above *(replacing the example values with the values provided by your instructor)*.
+Your student account will be used to create an AWS console login and provide unique names for infrastructure that you create in the shared account.
+
+The short URL path will be used to grant access to the shared AWS account both via the AWS API and as the password for the AWS web console. Replace the emailid and shortUrl values below with the student account name and short URL assigned to you at the start of the lab.
+
+Copy and paste the commands below to accomplish the steps above. **REPLACE THE EXAMPLE VARIABLES WITH THE VALUES PROVIDED BY YOUR INSTRUCTOR.**
 
 .. code-block:: bash
 
@@ -76,17 +72,17 @@ Copy and paste the commands below to accomplish the steps above *(replacing the 
    export shortUrl=abc123
    printenv
 
-The ``printenv`` command will echo all your environment variables.  Look for emailid and shortUrl. Confirm the exported variables are correct.
-
-.. image:: /_static/4a_export
+.. image:: ./images/4a_export.png
   :scale: 50%
+
+The ``printenv`` command will echo all your environment variables.  Look for emailid and shortUrl. Confirm the exported variables are correct.
 
 Initialize your Lab Environment
 -------------------------------
 
 This will create AWS credentials that you will use to access the shared AWS account.
 
-You will (instructions provided below)
+You will:
 
 - Change to your home directory.
 - Clone the git repository for this lab.
@@ -102,12 +98,12 @@ Copy and paste the commands below to accomplish the steps above.
    cd ~/marfil-f5-terraform/
    source start
 
-.. image:: /_static/5_git_clone
+.. image:: ./images/5_git_clone.png
   :scale: 50%
 
 Git clone completes successfully.
 
-.. image:: /_static6_git_clone_complete
+.. image:: ./images/6_git_clone_complete.png
   :scale: 50%
 
 .. attention::
@@ -137,10 +133,10 @@ Terraform apply.
 
    terraform apply
 
-.. image:: /_static/7_terraform_apply
+.. image:: ./images/7_terraform_apply.png
   :scale: 50%
 
-.. image:: /_static/8_terraform_apply_complete
+.. image:: ./images/8_terraform_apply_complete.png
   :scale: 50%
 
 F5 AWS Lab Test application
@@ -148,7 +144,7 @@ F5 AWS Lab Test application
 
 Note the alb_dns_name value in terraform output. HTTPS to this site from any browser to see the example lab application.
 
-.. image:: /_static/9_alb_demo_site
+.. image:: ./images/9_alb_demo_site.png
   :scale: 50%
 
 What just happened?
@@ -163,11 +159,9 @@ When you clone the git repository, you are pulling down a current version of the
 
 	*main.tf* - Every terraform configuration has a main.tf. This contains all of the AWS specific (non-F5) environment configuration, including web instances
 
-	*f5-cloudformation*.tf files - Nothing more than a terraform file that takes the officially supported CloudFormation template hosted at:
+	*f5-cloudformation*.tf files - A terraform file that takes the officially supported CloudFormation template hosted at:
 
-	https://s3.amazonaws.com/f5-cft/f5-autoscale-bigip.template
-
-	https://s3.amazonaws.com/f5-cft/f5-existing-stack-across-az-cluster-hourly-2nic-bigip.template
+	https://s3.amazonaws.com/f5-cft/f5-existing-stack-bigiq-1nic-bigip.template
 
 	...and stuffs all of the prerequisite parameters so we don't have to do it manually.
 
@@ -175,7 +169,7 @@ When you clone the git repository, you are pulling down a current version of the
 
 	*vars.tf* - Variables for terraform.
 
-- Handy utilities to help move the lab along with minimum fuss: *lab-info*, *password-reset*, *lab-cleanup*.
+- Handy utilities to help move the lab along with minimum fuss: *password-reset*.
 
 The start script takes care of all of the prerequisites to standing up an AWS environment. Precisely:
 
