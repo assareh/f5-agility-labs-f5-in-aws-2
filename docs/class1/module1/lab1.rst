@@ -3,9 +3,10 @@ Connecting to the Lab
 
 .. important:: Your student account, and short URL path will be announced at the start of the lab.
 
-- Though the environment runs on a shared AWS account, every student will build and work in a dedicated AWS VPC.
+- The lab environment consists of both a simulated "on-premises" datacenter hosted in Ravello and a public cloud environment hosted in AWS.
+- Though the public cloud environment runs on a shared AWS account, every student will build and work in a dedicated AWS VPC.
 - For this lab, a Linux Remote Desktop jump host will be provided as a consistent starting point.
-- A convenient way to work through the lab is to split your screen in half: left for the lab environment and right for the lab guide.
+- A convenient way to work through the lab is to split your screen in half: one side for the lab environment, the other side for the lab guide.
 
 Lab Variables
 -------------
@@ -26,8 +27,10 @@ Launch Remote Desktop Session to Linux
   :scale: 50%
 
 - Look for ubuntu1. Note the username / password. Click on *rdp* link. Download the rdp file. Click on the rdp file to launch a Remote Desktop Session to your client.
+
 - Alternatively, you can copy and paste the ubutu1 IP address into your Remote Desktop client to modify settings.
-    - Local Resources => Keyboard => Apply Windows key combinations: On the remote computer. This will allow you to quickly toggle between windows inside the Remote Desktop Session.
+  - Local Resources => Keyboard => Apply Windows key combinations: On the remote computer. This will allow you to quickly toggle (ALT + TAB) between windows inside the Remote Desktop Session.
+
 - Login with username / password
 
 .. image:: ./images/2_rdp_logon.png
@@ -60,11 +63,15 @@ Set Variables
 
 Export your student account and short URL path variables.
 
-Your student account will be used to create an AWS console login and provide unique names for infrastructure that you create in the shared account.
+Your student account will be used to create an AWS console login and provide unique names for infrastructure that you create in the shared AWS account.
 
 The short URL path will be used to grant access to the shared AWS account both via the AWS API and as the password for the AWS web console. Replace the emailid and shortUrl values below with the student account name and short URL assigned to you at the start of the lab.
 
-Copy and paste the commands below to accomplish the steps above. **REPLACE THE EXAMPLE VARIABLES WITH THE VALUES PROVIDED BY YOUR INSTRUCTOR.**
+Copy and paste the commands below to accomplish the steps above.
+
+.. attention::
+
+   **REPLACE THE EXAMPLE VALUES WITH THE VALUES PROVIDED TO YOU BY YOUR INSTRUCTOR.**
 
 .. code-block:: bash
 
@@ -113,7 +120,7 @@ Git clone completes successfully.
 Launch Terraform
 -----------------
 
-Now that we have created credentials to access the AWS account we will use Terraform to deploy our lab environment.
+Now that we have created credentials to access the AWS account, we will use Terraform to deploy our lab environment.
 
 Initialize terraform.
 
@@ -156,12 +163,12 @@ When you clone the git repository, you are pulling down a current version of the
 
 - Onboarding scripts that create your AWS account and other prerequisites: *f5-super-netops-install.sh*, *addUser.sh*, *export.sh*.
 
-    - all of the terraform configuration files--a declarative, comprehensive representation of our entire application stack:
-    - *main.tf* - Every terraform configuration has a main.tf. This contains all of the AWS specific (non-F5) environment configuration, including web instances
-    - *f5-cloudformation*.tf files - A terraform file that takes the officially supported CloudFormation template hosted at: https://s3.amazonaws.com/f5-cft/f5-existing-stack-bigiq-1nic-bigip.templat and stuffs all of the prerequisite parameters so we don't have to do it manually.
-    - *outputs.tf* - Any variable in the outputs.tf file can be rendered to the console with 'terraform output' and is exposed to other command line tools.
-    - *vars.tf* - Variables for terraform.
-    - Handy utilities to help move the lab along with minimum fuss: *password-reset*.
+  - all of the terraform configuration files--a declarative, comprehensive representation of our entire application stack:
+  - *main.tf* - Every terraform configuration has a main.tf. This contains all of the AWS specific (non-F5) environment configuration, including web instances
+  - *f5-cloudformation*.tf files - A terraform file that takes the officially supported CloudFormation template hosted at: https://s3.amazonaws.com/f5-cft/f5-existing-stack-bigiq-1nic-bigip.templat and stuffs all of the prerequisite parameters so we don't have to do it manually.
+  - *outputs.tf* - Any variable in the outputs.tf file can be rendered to the console with 'terraform output' and is exposed to other command line tools.
+  - *vars.tf* - Variables for terraform.
+- Handy utilities to help move the lab along with minimum fuss: *password-reset*.
 
 The start script takes care of all of the prerequisites to standing up an AWS environment. Precisely:
 

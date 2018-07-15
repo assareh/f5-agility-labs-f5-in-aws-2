@@ -13,7 +13,7 @@ You will now import the existing Big-IP VE in AWS in to Big-IQ for central manag
 Connectivity requirements for the Big-IQ system are kept current here:
 https://support.f5.com/csp/article/K15612
 
-Login to the https config utilty (Web UI) of the AWS hosted Big-IP VE. Delete the "app1" virtual server.
+Login to the Big-IP https Configuration utilty (Web UI) of the AWS hosted Big-IP VE. **Delete the "app1" virtual server.**
 
 .. image:: ./images/1_delete_app1.png
   :scale: 50%
@@ -60,7 +60,7 @@ Finish the Local Traffic (LTM) import task. Click on "Import".
 .. image:: ./images/6_import_ltm.png
   :scale: 50%
 
-Finish the Web Application Security (ASM) import taks. Click on "Import"
+Finish the Web Application Security (ASM) import task. Click on "Import"
 
 .. image:: ./images/7_import_asm.png
   :scale: 50%

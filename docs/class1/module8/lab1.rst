@@ -8,7 +8,7 @@ From Big-IQ, create a device template. Devices tab => DEVICE TEMPLATES => Create
 
 New Device Template:
   - Name: f5-aws
-  - check: DNS & NTP
+  - check Platform: DNS & NTP
   - check Administration: Root Account
   - check Administration: User Accounts
   - Click OK

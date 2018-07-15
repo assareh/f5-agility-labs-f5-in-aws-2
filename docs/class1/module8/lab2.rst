@@ -8,7 +8,7 @@ From your Super-NetOps terminal, there are multiple ways to see your AWS access 
    echo $AWS_ACCESS_KEY_ID
    echo $AWS_SECRET_ACCESS_KEY
 
-...or you can cat the hidden ~/.aws/config file.
+...or you can cat the hidden ~/.aws/config file:
 
 .. code-block:: bash
 

@@ -6,7 +6,7 @@ Apply F5 Networks WAF Rules to an AWS Application Load Balancer
 .. image:: ./images/1_alb.png
   :scale: 50%
 
-2. Highlight the Listeners tab. A listener is ready to receive traffic on HTTPS: 443. A TLS Certificate was installed as part of our deployment and the ALB is terminating TLS. An AWS application load balander terminating TLS is a prerequisite for deploying WAF rules.
+2. Highlight the Listeners tab. A listener is ready to receive traffic on HTTPS: 443. A TLS Certificate was installed as part of our deployment and the ALB is terminating TLS. An AWS application load balancer terminating TLS is a prerequisite for deploying WAF rules.
 
 .. image:: ./images/2_alb_listener_https_443.png
   :scale: 50%
@@ -16,13 +16,11 @@ Apply F5 Networks WAF Rules to an AWS Application Load Balancer
 .. image:: ./images/3_aws_waf_shield.png
   :scale: 50%
 
-4. In the left hand navigation pane, click on Marketplace. Prior to deploying F5 WAF Rules for AWS, you need to subscribe to the service and agree to the AWS subscription agreement. This has been done for you already. As of July 2018, F5 offers three collections of WAF rules:
+4. In the left hand navigation pane, click on Marketplace. Prior to deploying F5 WAF Rules for AWS, you need to subscribe to the service and agree to the AWS subscription agreement. This has been done for you already. F5 offers three collections of WAF rules:
 
-  - F5 Web Application CVE Signatures For AWS WAF
-
-  - F5 Bot Detection Signatures For AWS WAF
-
-  - AWS WAF - Web Exploits Rules by F5
+- F5 Web Application CVE Signatures For AWS WAF
+- F5 Bot Detection Signatures For AWS WAF
+- AWS WAF - Web Exploits Rules by F5
 
 ...read through the Details for a summary of the protection included in each category.
 

@@ -1,12 +1,12 @@
-Create a Service Scaling Group Application
-------------------------------------------
+Enable Enhanced Analytics
+-------------------------
 
-From Big-IQ, click on app2. Enable Enhanced Analytics. Click Start.
+From Big-IQ, click on app2. Enable Enhanced Analytics. Match the settings in the screenshot below. Click Start.
 
 .. image:: ./images/6_enable_enhanced_analytics.png
   :scale: 50%
 
-From Big-IQ, navigate to ENVIRONMENT => CONFIGURATION => Device => [View Health Statistics]. YOu can monitor the health status of the device based on custom thresholds here (cpu % exceeded, etc.)
+From Big-IQ, navigate to ENVIRONMENT => CONFIGURATION => Device => [View Health Statistics]. You can monitor the health status of the device based on custom thresholds here (cpu % exceeded, etc.)
 
 .. image:: ./images/7_health_statistics.png
   :scale: 50%

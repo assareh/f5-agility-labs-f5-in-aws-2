@@ -9,7 +9,7 @@ Create a Virtual Server on Big-IP VE the Old Fashioned Way
 
 ...Note both the Bigip1subnet1Az1SelfEipAddress and BigipUrl values.
 
-2. Big-IP Virtual Edition appliances deployed to public cloud are only accessible via ssh key. You have to create an admin account and password before you can configure this Big-IP from the config utility (Web UI). Run the password-reset script to create an admin account. Replace x.x.x.x with the terraform output value of Bigip1subnet1Az1SelfEipAddress.
+2. Big-IP Virtual Edition appliances deployed to public cloud are only accessible initially only via ssh key. You have to create an admin account and password before you can configure this Big-IP from the Configuration utility (Web UI). Run the password-reset script to create an admin account. Replace x.x.x.x with the terraform output value of Bigip1subnet1Az1SelfEipAddress.
 
 .. code-block:: bash
 
@@ -25,7 +25,7 @@ Create a Virtual Server on Big-IP VE the Old Fashioned Way
 .. image:: ./images/2_TLS_warning.png
   :scale: 50%
 
-4. Login to you F5 Big-IP VE running in AWS. User your emailid as Username and the shortUrl as Password.
+4. Login to you F5 Big-IP VE running in AWS. Username: admin and Password: the value of shortUrl for your class.
 
 .. image:: ./images/3_waf_config_login_8443.png
   :scale: 50%
@@ -41,7 +41,7 @@ Create a Virtual Server on Big-IP VE the Old Fashioned Way
 .. image:: ./images/4_terraform_output_for_virtual_server_values.png
   :scale: 50%
 
-6. From the Big-IP config utilitty (Web UI), navigate to Local Traffic => Virtual Servers => Create new virtual server.
+6. From the Big-IP Configuration utilitty (Web UI), navigate to Local Traffic => Virtual Servers => Create new virtual server.
 
 +------------------------------------------+-------------------------------------------------------------------+
 | Parameter                                | value                                                             |

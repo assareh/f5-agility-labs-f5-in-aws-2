@@ -20,20 +20,21 @@ Select a Service Template
 
 General Properties
 - Name: app2
-- Domain Names: app2.f5lab.complete
+- Domain Names: app2.f5lab.com
 
 Select a Traffic Service Environment
 - Environment: Select Service Scaling Group
 - Service Scaling Group: userXX-ssg1 created previously
 
 AWS ELB Settings
+
 - Name of Classic Load Balancer: cut and paste the terraform output asg-lb value here.
 - Listeners: TCP: 80 TCP: 80
 - Listeners: TCP 443 TCP: 443
 
 .. warning::
 
-   The AWS ELB must exist first for the Application deployment to succeed, but Big-IQ creates the listeners. If conflicting listeners exist (same protocol/ort) then application deployment will fail.
+   The AWS ELB must exist first for the Application deployment to succeed, but Big-IQ creates the listeners. If conflicting listeners exist (same protocol/port) then application deployment will fail.
 
 Click Create.
 

@@ -17,7 +17,7 @@ From bigip1, use dig to discover the public IP address assigned to your bigip1.
 .. image:: ./images/1_bigip1_publicip.png
   :scale: 50%
 
-Navigate to Services => Networking & Content Deliver => VPC. click on VPCs. From the VPC Dashboard, in the left-hand navigation pane, click on Virtual Private Gateways. Enter your username in the search filter (i.e. user99). A virtual Private Gateway has been created and attached to your VPC. We will now establish an IPSec VPN tunnel between our on-premises environment and our AWS VPC.
+In the AWS web console, navigate to Services => Networking & Content Deliver => VPC. Click on VPCs. From the VPC Dashboard, in the left-hand navigation pane, click on Virtual Private Gateways. Enter your username in the search filter (i.e. user99). A virtual Private Gateway has been created and attached to your VPC. We will now establish an IPSec VPN tunnel between our on-premises environment and our AWS VPC.
 
 .. image:: ./images/2_vpn_gateway.png
   :scale: 50%
@@ -31,18 +31,18 @@ Crate Customer Gateway.
 
 - Name: userXX-cgw, replace userXX with the unique user id assigned to you in class. The example in the screenshot is for user99.
 - Routing: Static
-- IP Address\*: This is the public IP address of your on-premises Big-IP VE. From the bigip1 cli, review the output of the dig command below.
-
-Click "Create Customer Gateway"
+- IP Address\*: This is the public IP address of your on-premises Big-IP VE. From the bigip1 terminal, review the output of the dig command below.
 
 .. code-block:: bash
 
    dig -b 10.1.20.11 TXT +short o-o.myaddr.l.google.com @ns1.google.com
 
+Click "Create Customer Gateway"
+
 .. image:: ./images/4_create_customer_gateway_2.png
   :scale: 50%
 
-Create Customer Gatewaqy Request Succeded. Note the Customer Gateway ID in the format cgw-xxxxxxxxx. You will need this id in the next step.
+Create Customer Gateway Request Succeded. Note the Customer Gateway ID in the format cgw-xxxxxxxxx. You will need this id in the next step.
 
 .. image:: ./images/4_create_customer_gateway_3.png
   :scale: 50%
@@ -109,7 +109,7 @@ Right click on the downloaded vpn-xxxxxxxxx.txt config and Upload. By default, t
 .. image:: ./images/13_upload_vpn_config.png
   :scale: 50% 
 
-Back to your bigip1 ssh session terminal window. If you don't have a bigip ssh session running, invoke the shell alias "bigip" to automatically connect. Replace vpn-xxxxxxxx.txt with your unique vpn config file. Use tab completion to save error-prone keystrokes.
+Back to your bigip1 ssh session terminal window. If you don't have a bigip ssh session running, invoke the command alias "bigip" to automatically connect. Replace vpn-xxxxxxxx.txt with your unique vpn config file. Use tab completion to save error-prone keystrokes.
 
 .. code-block:: bash
 
@@ -122,7 +122,7 @@ Back to your bigip1 ssh session terminal window. If you don't have a bigip ssh s
 
 Because the bigip1 is not directly connected to the Internet, but behind a public IP NAT, we need to make a few tweaks to the imported vpn configuration before the IPSec tunnel is up and running.
 
-Login to the https Config utility (Web UI) of bigip1 with default admin / admin credentials. The Firefox and Chrome browsers on the Linux jumphost have bookmarks prepared for you.
+Login to the https Configuration utility (Web UI) of bigip1 with default admin / admin credentials. The Firefox and Chrome browsers on the Linux jumphost have bookmarks prepared for you.
 
 Network => Tunnels => tunnel-vpn-xxxxxxx-0
 
@@ -192,6 +192,21 @@ From your Linux Desktop terminal (but not the Super-NetOps Container!) you will 
 
 .. image:: ./images/27_ping_web_server_privateips.png
   :scale: 50%
+
+To troubleshoot your IPSec tunnel, from a Big-IP terminal:
+
+.. code-block:: bash
+   
+   tail -f /var/log/racoon.log
+
+To confirm your IPSec tunnel status on a Big-IP:
+
+.. code-block:: bash
+
+   racoonctl -ll show-sa isakmp
+   racoonctl -ll show-sa ipsec
+   tmsh show net ipsec ipsec-sa all-properties
+
 
 .. attention::
 

@@ -42,7 +42,7 @@ Explore the F5 / AWS lab environment
 .. image:: ./images/5_cft_resources.png
   :scale: 50%
 
-- Click on the Resources tab. Here we see a map of exactly which AWS resources were deployed from the CloudFormation template.
+- Click on the Resources tab. Here we see a map (resource type to unqique id) of all the AWS resources that were deployed from the CloudFormation template.
 
 .. image:: ./images/5_cft_resources.png
   :scale: 50%
@@ -56,7 +56,7 @@ Explore the F5 / AWS lab environment
 
    - Instance type
    - Elastic IP
-   - Key pair name:
+   - Key pair name
    - Private IPs
    - VPC ID
    - Network interface
@@ -66,14 +66,18 @@ Explore the F5 / AWS lab environment
 
 .. attention::
 
-   We deployed a single-NIC Big-IP. A curious difference from traditional datacenter two and three NIC deployments is that single-NIC cloud instances will often share the same IP address for management, self-ip and virtual server. In our deployment: tcp 22 to ssh to the self-ip for management, tcp 8443 to https to the config utility for management, and 80, 443 will evenutally be the virtual server / listener for application traffic.
+   We deployed a single-NIC Big-IP. A curious difference from traditional datacenter two and three NIC deployments is that single-NIC cloud instances will often share the same IP address for management, self-ip and virtual server. In our deployment: tcp 22 to ssh to the self-ip for management, tcp 8443 to https to the config utility for management, and tcp 80, 443 will evenutally be the virtual server / listener for http/https application traffic.
 
 6.  Cloud-init. Version 13 of Big-IP supports cloud-init. Right click on BIGIP1 => Instance Settings => View/Change User Data. Cloud-init is the industry standard way to inject commands into an F5 cloud image to automate all aspects of the on-boarding process: https://cloud-init.io/.
 
 .. image:: ./images/8_f5_user_data.png
   :scale: 50%
 
-7. Services => Compute => EC2 => LOAD BALANCING => Load Balancers. In the search filter enter your username. You should see two load balancers. One named tf-alb-\* is your newly created AWS application load balancer. Highlight the 'Description' tab. Note Scheme: internate-facing, Type: application and the AWS WAF Web ACL: has no web acl applied.
+7. Services => Compute => EC2 => LOAD BALANCING => Load Balancers. In the search filter enter your username. You should see two load balancers. One named tf-alb-\* is your newly created AWS application load balancer. Highlight the 'Description' tab. Note:
+
+- Scheme: internate-facing
+- Type: application
+- AWS WAF Web ACL: has no web acl applied.
 
 .. image:: ./images/9_alb.png
   :scale: 50%
