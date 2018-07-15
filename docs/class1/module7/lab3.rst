@@ -1,55 +1,37 @@
 Explore application services deployed from Big-IQ 6.0
 -----------------------------------------------------
 
-From your Super-NetOps terminal run "terraform output" and note the BigipExternalInterfacePrivateIP and both web-sever-x values.
+Login to the https config utiltiy (Web UI) of the Big-IP VE hosted in AWS. Username: admin / Password: shortUrl value.
 
-.. code-block:: bash
+Local Traffic => Virtual Servers. Two virtual servers were deployed, one for http with an iRule attached that will redirect and force traffic to the https virtual server.
 
-   terraform output
-
-.. image:: ./images/11_web_server_ips.png
+.. image:: ./images/16_explore_app1_part0.png
   :scale: 50%
 
-Applications tab => Applications => Create.
+The virtual server has a WAF policy attached.
 
-.. image:: ./images/9_create_application.png
+.. image:: ./images/17_explore_app1_part1.png
   :scale: 50%
 
-Select the "Default-f5-HTTPS-WAF-lb-template" from the Template drop-down.
-
-.. image:: ./images/10_select_app_template.png
+.. image:: ./images/20_explore_app1_part4.png
   :scale: 50%
 
-+-------------------------------+--------------------------------------------------------+
-| Parameter                     | value                                                  |
-+===============================+========================================================+
-| Name                          | app1                                                   |
-+-------------------------------+--------------------------------------------------------+
-| Domain Names                  | app1.f5lab.com                                         |
-+-------------------------------+--------------------------------------------------------+
-| Environment                   | Select BIG-IP                                          |
-+-------------------------------+--------------------------------------------------------+
-| BIG-IP                        | select your recently imported Big-IP from the dropdown.|
-|                               | Collect HTTP Statistics.                               |
-+-------------------------------+--------------------------------------------------------+
-| Servers                       | web-server-0 and web-server-1; Port: 80; HTTP          |
-+-------------------------------+--------------------------------------------------------+
-| Web Application Firewall & LB:|                                                        |
-| Destination Address           | IP address value of BigipExternalInterfacePrivateIP    |
-+-------------------------------+--------------------------------------------------------+
-| HTTP Redirect:                |                                                        |
-| Destination Address           | IP address value of BigipExternalInterfacePrivateIP    |
-+-------------------------------+--------------------------------------------------------+
+Security => Application Security => Policies to review the WAF policy that was created and deployed.
 
-Create.
-
-.. image:: ./images/12_create_application_part1.png
+.. image:: ./images/18_explore_app1_part2.png
   :scale: 50%
 
-.. image:: ./images/13_create_application_part2.png
+Click on Learning and Blocking settings to explore further. This is a starter policy and can be tuned and managed from Big-IQ by a dedicated security team supporting full Role Based Access Control.
+
+.. image:: ./images/19_explore_app1_part3.png
   :scale: 50%
 
-Eventually, app1 status will report green and healthy.
+Open the sample application in a web browser. Refresh the page a few times by repeatedly hitting the [F5] key to generate some modest traffic.
 
-.. image:: ./images/14_app1_created.png
+.. image:: ./images/17_https_app1.png
+  :scale: 50%
+
+Back in Big-IQ you will soon see some connection info recorded. From the Big-IQ app1 view => Application Properties => Analytics => Concurrent Connections.
+
+.. image:: ./images/21_enhanced_analytics.png
   :scale: 50%
