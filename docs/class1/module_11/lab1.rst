@@ -1,7 +1,10 @@
 Clean up the lab environment
 ----------------------------
 
-Autoscaling based on a combination of high cpu or throughput is a good way to scale out during periods of heavy use, without over-investing in idle capacity.
+.. attention::
+   
+   Lab testers: this is the most important step. Please clean-up.
+   
 
 .. image:: ./images/1_delete_apps.png
   :scale: 50%

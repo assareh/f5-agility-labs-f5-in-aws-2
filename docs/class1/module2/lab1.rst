@@ -1,7 +1,7 @@
 Explore the F5 / AWS lab environment
 ------------------------------------
 
-1. From the Linux desktop, click "Applications" in the upper-left-hand corner to launch the Dock.
+1. From the Linux desktop, click "Activities" in the upper-left-hand corner to launch the Dock.
 
 .. image:: ./images/0_terminal.png
   :scale: 50%
