@@ -5,7 +5,7 @@
 # ------------
 #
 # REQUIRED: Your class/lab name
-classname = "F5 Public Cloud Architectures - F5 in AWS II"
+classname = "Public Cloud Architectures II: F5 in AWS Advanced Use Cases Beyond Native Tools"
 
 # OPTIONAL: The URL to the GitHub Repository for this class
 github_repo = "https://github.com/TonyMarfil/f5-agility-labs-f5-in-aws-2"
@@ -63,7 +63,7 @@ if 'github_repo' in locals() and len(github_repo) > 0:
     rst_prolog += """
 .. |repoinfo| replace:: The content contained here leverages a full DevOps CI/CD
               pipeline and is sourced from the GitHub repository at %s.
-              Bugs and Requests for enhancements can be made using by
+              Bugs and Requests for enhancements can be made by
               opening an Issue within the repository.
 """ % (github_repo)
 else:
