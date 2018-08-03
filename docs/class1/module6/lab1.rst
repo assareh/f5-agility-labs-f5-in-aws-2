@@ -126,7 +126,11 @@ Login to the https Configuration utility (Web UI) of bigip1 with default admin /
 
 Network => Tunnels => tunnel-vpn-xxxxxxx-0
 
-.. image:: ./images/14b_change_tunnel_addresses.png
+.. attention::
+   
+   Make sure you are on bigip1. This is your simulated on-premises Big-IP.
+
+.. image:: ./images/14b_change_tunnel_addresses_bigip1.png
   :scale: 50%
 
 Change Local Address to 10.1.20.11. Update.
