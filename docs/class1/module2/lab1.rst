@@ -94,12 +94,24 @@ Explore the F5 / AWS lab environment
 
 8. Navigate to Services => Networking & Content Deliver => VPC. click on VPCs. Enter your username in the search filter (i.e. user99). This is the Virtual Private Cloud (VPC) that has been dedicated to your lab environment.
 
-- Select the Summary tab. You can see the IPv4 CIDR assigned is 10.0.0.0/16. Your on-premises datacenter has been assigned 10.1.0.0/16 to not conflict.
-
 .. image:: ./images/12_vpc.png
   :scale: 50%
 
-9. From the VPC Dashboard, Click on VPN Connections in the left-hand navigation pane. Enter your username in the search filter (i.e. user99). A virtual Private Gateway has been created and attached to your VPC. We will later use this VPN Gateway to create and IPSec tunnel between our on-premises environment and our AWS VPC.
+- Select the Summary tab. You can see the IPv4 CIDR assigned is 10.0.0.0/16.
+
+.. attention::
+
+   There are two separate enviornments in this lab. Your simulated on-premises datacenter is hosted in Ravello and consists of:
+
+   - Big-IP
+   - Big-IQ
+   - Data Collection Device (part of every Big-IQ deployment).
+   - Linux Jumphost
+   - Docker Host
+
+   Your AWS environment is built when you run `terraform apply` and destroyed when you run `terraform destroy`. Your on-premises datacenter has been assigned 10.1.0.0/16 to not conflict with your AWS environment which has been assigned 10.0.0.0/16.
+
+9. From the VPC Dashboard, Click on "Virtual Private Gateway" in the left-hand navigation pane. Enter your username in the search filter (i.e. user99). A virtual Private Gateway has been created and attached to your VPC. We will later use this VPN Gateway to create and IPSec tunnel between our on-premises environment and our AWS VPC.
 
 .. image:: ./images/13_vpn_gateway.png
   :scale: 50%

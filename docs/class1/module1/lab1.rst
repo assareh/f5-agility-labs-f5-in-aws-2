@@ -163,11 +163,13 @@ When you clone the git repository, you are pulling down a current version of the
 
 - Onboarding scripts that create your AWS account and other prerequisites: *f5-super-netops-install.sh*, *addUser.sh*, *export.sh*.
 
-  - all of the terraform configuration files--a declarative, comprehensive representation of our entire application stack:
+- Terraform configuration files--a declarative, comprehensive representation of our entire application stack:
+
   - *main.tf* - Every terraform configuration has a main.tf. This contains all of the AWS specific (non-F5) environment configuration, including web instances
   - *f5-cloudformation*.tf files - A terraform file that takes the officially supported CloudFormation template hosted at: https://s3.amazonaws.com/f5-cft/f5-existing-stack-bigiq-1nic-bigip.templat and stuffs all of the prerequisite parameters so we don't have to do it manually.
   - *outputs.tf* - Any variable in the outputs.tf file can be rendered to the console with 'terraform output' and is exposed to other command line tools.
   - *vars.tf* - Variables for terraform.
+
 - Handy utilities to help move the lab along with minimum fuss: *password-reset*.
 
 The start script takes care of all of the prerequisites to standing up an AWS environment. Precisely:

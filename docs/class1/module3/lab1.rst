@@ -1,7 +1,7 @@
 Apply F5 Networks WAF Rules to an AWS Application Load Balancer
 ---------------------------------------------------------------
 
-1. From the AWS Console, navigate to Services => Compute => EC2 => LOAD BALANCING => Load Balancers. In the search filter enter your username. You should see two load balancers. One named tf-alb-\* is your newly created AWS application load balancer. Highlight the 'Description' tab. Note Scheme: internate-facing, Type: application and the AWS WAF Web ACL: has no web acl applied. Preconfigured Web-ACLs are offered by F5, offer protection against common OWASP top 10 style attacks, and can be deployed on any ALB. Functionality is a small subset of market-leading F5 WAF running on a Big-IP VE.
+1. From the AWS Console, navigate to Services => Compute => EC2 => LOAD BALANCING => Load Balancers. In the search filter enter your username. You should see two load balancers. One named tf-alb-\* is your newly created AWS application load balancer. Highlight the 'Description' tab. Note Scheme: internet-facing, Type: application and the AWS WAF Web ACL: has no web acl applied. Preconfigured Web-ACLs are offered by F5, offer protection against common OWASP top 10 style attacks, and can be deployed on any ALB. Functionality is a small subset of market-leading F5 WAF running on a Big-IP VE.
 
 .. image:: ./images/1_alb.png
   :scale: 50%
@@ -11,18 +11,18 @@ Apply F5 Networks WAF Rules to an AWS Application Load Balancer
 .. image:: ./images/2_alb_listener_https_443.png
   :scale: 50%
 
-3. From the AWS Console, navigate to Services => Security, Identity & Compliance => WAF & Shield.
+3. From the AWS Console, navigate to Services => Security, Identity & Compliance => WAF & Shield. Click the Go to AWS WAF button.
 
 .. image:: ./images/3_aws_waf_shield.png
   :scale: 50%
 
-4. In the left hand navigation pane, click on Marketplace. Prior to deploying F5 WAF Rules for AWS, you need to subscribe to the service and agree to the AWS subscription agreement. This has been done for you already. F5 offers three collections of WAF rules:
+4. Prior to deploying F5 WAF Rules for AWS, you need to subscribe to the service and agree to the AWS subscription agreement. This has been done for you already. F5 offers three collections of WAF rules:
 
 - F5 Web Application CVE Signatures For AWS WAF
 - F5 Bot Detection Signatures For AWS WAF
 - AWS WAF - Web Exploits Rules by F5
 
-...read through the Details for a summary of the protection included in each category.
+In the left hand navigation pane, click on Marketplace. Read through the Details for a summary of the protection included in each category.
 
 .. image:: ./images/4_f5_waf_rules_marketplace.png
   :scale: 50%
