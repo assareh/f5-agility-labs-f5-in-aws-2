@@ -15,7 +15,7 @@ Applications tab => Applications => Create.
 .. image:: ./images/9_create_application.png
   :scale: 50%
 
-Select the "Default-f5-HTTPS-WAF-lb-template" from the Template drop-down.
+Select the "Default-f5-HTTPS-WAF-lb-template" from the Template drop-down. Click create.
 
 .. image:: ./images/10_select_app_template.png
   :scale: 50%
@@ -32,7 +32,7 @@ Select the "Default-f5-HTTPS-WAF-lb-template" from the Template drop-down.
 | BIG-IP                        | select your recently imported Big-IP from the dropdown.|
 |                               | Collect HTTP Statistics.                               |
 +-------------------------------+--------------------------------------------------------+
-| Servers                       | web-server-0 and web-server-1; Port: 80; HTTP          |
+| Servers                       | web-server-1 and web-server-2; Port: 80; HTTP          |
 +-------------------------------+--------------------------------------------------------+
 | Web Application Firewall & LB:|                                                        |
 | Destination Address           | IP address value of BigipExternalInterfacePrivateIP    |
@@ -41,7 +41,6 @@ Select the "Default-f5-HTTPS-WAF-lb-template" from the Template drop-down.
 | Destination Address           | IP address value of BigipExternalInterfacePrivateIP    |
 +-------------------------------+--------------------------------------------------------+
 
-Create.
 
 .. image:: ./images/12_create_application_part1.png
   :scale: 50%
