@@ -41,6 +41,7 @@ Select the "Default-f5-HTTPS-WAF-lb-template" from the Template drop-down. Click
 | Destination Address           | IP address value of BigipExternalInterfacePrivateIP    |
 +-------------------------------+--------------------------------------------------------+
 
+Click create.
 
 .. image:: ./images/12_create_application_part1.png
   :scale: 50%
