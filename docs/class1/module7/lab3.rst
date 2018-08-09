@@ -1,9 +1,9 @@
 Explore application services deployed from Big-IQ 6.0
 -----------------------------------------------------
 
-Login to the https Configuration utiltiy (Web UI) of the Big-IP VE hosted in AWS. Username: admin / Password: shortUrl value.
+Login to the https Configuration utility (Web UI) of the Big-IP VE hosted in AWS. Username: admin / Password: shortUrl value.
 
-Local Traffic => Virtual Servers. Two virtual servers were deployed, one for http with an iRule attached that will redirect and force traffic to the https virtual server.
+Local Traffic => Virtual Servers. Two virtual servers were deployed, one for http with an iRule attached that will redirect traffic to the https virtual server.
 
 .. image:: ./images/16_explore_app1_part0.png
   :scale: 50%

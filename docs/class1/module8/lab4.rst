@@ -27,7 +27,7 @@ Scaling Rules
 Heatlh Status Rules
 
 - Critical : CPU Utilization : Greater than 30%
-- Moderate: CPU Utillization: Greater than 20%
+- Moderate: CPU Utilization: Greater than 20%
 
 Notifications
 

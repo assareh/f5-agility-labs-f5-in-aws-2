@@ -11,7 +11,7 @@ Connecting to the Lab
 Lab Variables
 -------------
 
-The lab will make use of unique variables to provide access to the lab and isolate student environments.
+The lab will make use of unique variables to provide access and isolate student environments.
 
 ============== ===========================================================
 Variable Name   Variable Value
@@ -28,15 +28,16 @@ Launch Remote Desktop Session to Linux
 
 - Look for ubuntu1. Note the username / password. Click on *rdp* link. Download the rdp file. Click on the rdp file to launch a Remote Desktop Session to your client.
 
-- Alternatively, you can copy and paste the ubutu1 IP address into your Remote Desktop client to modify settings.
-  - Local Resources => Keyboard => Apply Windows key combinations: On the remote computer. This will allow you to quickly toggle (ALT + TAB) between windows inside the Remote Desktop Session.
+- Alternatively, you can copy and paste the ubuntu1 IP address into your Remote Desktop client to modify settings.
+  
+  - On Windows: Local Resources => Keyboard => Apply Windows key combinations: On the remote computer. This will allow you to quickly toggle (ALT + TAB) between windows inside the Remote Desktop Session.
 
 - Login with username / password
 
 .. image:: ./images/2_rdp_logon.png
   :scale: 50%
 
-SSH to the F5-Super-NetOps docker container
+SSH to the F5-Super-NetOps Docker container
 -------------------------------------------
 
 From the Linux desktop, click on the upper-left-hand corner "Activities" to reveal the application Dock.

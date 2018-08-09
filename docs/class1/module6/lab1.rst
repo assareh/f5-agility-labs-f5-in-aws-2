@@ -17,7 +17,7 @@ From bigip1, use dig to discover the public IP address assigned to your bigip1.
 .. image:: ./images/1_bigip1_publicip.png
   :scale: 50%
 
-In the AWS web console, navigate to Services => Networking & Content Deliver => VPC. Click on VPCs. From the VPC Dashboard, in the left-hand navigation pane, click on Virtual Private Gateways. Enter your username in the search filter (i.e. user99). A virtual Private Gateway has been created and attached to your VPC. We will now establish an IPSec VPN tunnel between our on-premises environment and our AWS VPC.
+In the AWS web console, navigate to Services => Networking & Content Delivery => VPC. Click on VPCs. From the VPC Dashboard, in the left-hand navigation pane, click on Virtual Private Gateways. Enter your username in the search filter (i.e. user99). A Virtual Private Gateway has been created and attached to your VPC. We will now establish an IPSec VPN tunnel between our on-premises environment and our AWS VPC.
 
 .. image:: ./images/2_vpn_gateway.png
   :scale: 50%
@@ -27,7 +27,7 @@ Click on Customer Gateways => Create Customer Gateway.
 .. image:: ./images/3_create_customer_gateway_1.png
   :scale: 50%
 
-Crate Customer Gateway.
+Create Customer Gateway.
 
 - Name: userXX-cgw, replace userXX with the unique user id assigned to you in class. The example in the screenshot is for user99.
 - Routing: Static
@@ -42,7 +42,7 @@ Click "Create Customer Gateway"
 .. image:: ./images/4_create_customer_gateway_2.png
   :scale: 50%
 
-Create Customer Gateway Request Succeded. Note the Customer Gateway ID in the format cgw-xxxxxxxxx. You will need this id in the next step.
+Create Customer Gateway Request Succeeded. Note the Customer Gateway ID in the format cgw-xxxxxxxxx. You will need this id in the next step.
 
 .. image:: ./images/4_create_customer_gateway_3.png
   :scale: 50%
@@ -99,12 +99,12 @@ From the Linux RDP session, click on "Activities" in the upper-left-hand corner 
 .. image:: ./images/11_launch_filezilla.png
   :scale: 50% 
 
-From FileZilla, launch the Site Manager. An entry for bigip1 has been prepared for you. Connect to bigip1. You will use SFTP (Secure FTP runs over the SSH protocol / TCP 22) to transfer the AWS generated VPN config file to your on-premises bigip1 and import the config.
+From FileZilla, launch Site Manager. An entry for bigip1 has been prepared for you. Connect to bigip1. You will use SFTP (Secure FTP runs over the SSH protocol / TCP 22) to transfer the AWS generated VPN config file to your on-premises bigip1 and import the config.
 
 .. image:: ./images/12_sftp_to_bigip.png
   :scale: 50% 
 
-Right click on the downloaded vpn-xxxxxxxxx.txt config and Upload. By default, the vpn-xxxxxxxxx.txt config will land in your bigip1 /root/ directory.
+Right-click on the downloaded vpn-xxxxxxxxx.txt config and Upload. By default, the vpn-xxxxxxxxx.txt config will land in your bigip1 /root/ directory.
 
 .. image:: ./images/13_upload_vpn_config.png
   :scale: 50% 

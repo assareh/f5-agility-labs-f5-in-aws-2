@@ -53,7 +53,7 @@ From the Big-IQ terminal, track logs for warnings, errors and failures.
 .. image:: ./images/3_bigiq_tail_logs.png
   :scale: 50%
 
-After a few minutes, app2 has been created and marked with a green healthy icon. Note Security: Protection mode: Protected; Transparent. An LTM only deployment has no Protection mode indicated. You can see at a glance if the application has a WAF policy protetcing it and whether the policy is in transparent or blocking mode.
+After a few minutes, app2 has been created and marked with a green healthy icon. Note Security: Protection mode: Protected; Transparent. An LTM only deployment has no Protection mode indicated. You can see at a glance if the application has a WAF policy protecting it and whether the policy is in transparent or blocking mode.
 
 .. image:: ./images/4_app_deployed.png
   :scale: 50%

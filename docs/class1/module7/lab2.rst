@@ -49,7 +49,7 @@ Click create.
 .. image:: ./images/13_create_application_part2.png
   :scale: 50%
 
-Eventually, app1 status will report green and healthy. Note Security: Protection mode is Proteced; Transparent.
+Eventually, app1 status will report green and healthy. Note Security: Protection mode is Protected; Transparent.
 
 .. image:: ./images/14_app1_created.png
   :scale: 50%

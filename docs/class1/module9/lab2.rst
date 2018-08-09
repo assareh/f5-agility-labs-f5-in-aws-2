@@ -14,7 +14,7 @@ From Big-IQ, navigate to ENVIRONMENT => CONFIGURATION => Device => [View Health 
 .. image:: ./images/8_health_statistics.png
   :scale: 50%
 
-Note the Device Address. This is the same address assigned as the public IP of the virutal server. You can https to this address to see our sample application. You can generate a modest amount of traffic by hitting the new application yourself with a few https requests by refreshing your browser with the [F5] key.
+Note the Device Address. This is the same address assigned as the public IP of the virtual server. You can https to this address to see our sample application. You can generate a modest amount of traffic by hitting the new application yourself with a few https requests by refreshing your browser with the [F5] key.
 
 .. image:: ./images/9_https_app.png
   :scale: 50%

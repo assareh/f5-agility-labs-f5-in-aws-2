@@ -1,7 +1,7 @@
 Create a Virtual Server on Big-IP VE the Old Fashioned Way
 ----------------------------------------------------------
 
-1. From the Linux terminal tab with the ssh session open to the Super-NetOps docker container:
+1. From the Linux terminal tab with the ssh session open to the Super-NetOps Docker container:
 
 .. code-block:: bash
 
@@ -9,7 +9,11 @@ Create a Virtual Server on Big-IP VE the Old Fashioned Way
 
 ...Note both the Bigip1subnet1Az1SelfEipAddress and BigipUrl values.
 
-2. Big-IP Virtual Edition appliances deployed to public cloud are only accessible initially only via ssh key. You have to create an admin account and password before you can configure this Big-IP from the Configuration utility (Web UI). Run the password-reset script to create an admin account. Replace x.x.x.x with the terraform output value of Bigip1subnet1Az1SelfEipAddress.
+2. Big-IP Virtual Edition appliances deployed to public cloud are initially accessible only via ssh key. You have to create an admin account and password before you can configure this Big-IP from the Configuration utility (Web UI). Run the `password-reset` script to create an admin account. 
+
+.. attention::
+   
+   Replace x.x.x.x with the terraform output value of Bigip1subnet1Az1SelfEipAddress. Take a close look at the example screenshot.
 
 .. code-block:: bash
 
@@ -25,12 +29,12 @@ Create a Virtual Server on Big-IP VE the Old Fashioned Way
 .. image:: ./images/2_TLS_warning.png
   :scale: 50%
 
-4. Login to you F5 Big-IP VE running in AWS. Username: admin and Password: the value of shortUrl for your class.
+4. Login to your F5 Big-IP VE running in AWS. Username: admin and Password: the value of shortUrl for your class.
 
 .. image:: ./images/3_waf_config_login_8443.png
   :scale: 50%
 
-5. From the Linux terminal tab with the ssh session open to the Super-NetOps docker container:
+5. From the Super-NetOps terminal:
 
 .. code-block:: bash
 
@@ -41,7 +45,7 @@ Create a Virtual Server on Big-IP VE the Old Fashioned Way
 .. image:: ./images/4_terraform_output_for_virtual_server_values.png
   :scale: 50%
 
-6. From the Big-IP Configuration utilitty (Web UI), navigate to Local Traffic => Virtual Servers => Create new virtual server.
+6. From the Big-IP Configuration utility (Web UI), navigate to Local Traffic => Virtual Servers => Create new virtual server.
 
 +------------------------------------------+-------------------------------------------------------------------+
 | Parameter                                | value                                                             |
@@ -72,7 +76,7 @@ Create a Virtual Server on Big-IP VE the Old Fashioned Way
 +------------------------------------------+-------------------------------------------------------------------+
 | Health Monitors                          | http                                                              |
 +------------------------------------------+-------------------------------------------------------------------+
-| New Members                              | terraform output values of web-server-0 and web-server-1          |
+| New Members                              | terraform output values of web-server-1 and web-server-2          |
 +------------------------------------------+-------------------------------------------------------------------+
 | Service Port                             | 80 / HTTP                                                         |
 +------------------------------------------+-------------------------------------------------------------------+
@@ -98,4 +102,8 @@ Click Finished to complete the creation of Virtual Server app1.
 .. image:: ./images/9_https_to_app1.png
   :scale: 50%
 
-Single NIC / Single-IP deployments work well in public cloud topologies. In this lab, we connected to the Big-IP over a single IP address to 1. ssh and create an admin account, 2. https over port 8443 for config management and 3. https 443 to process traffic.
+Single NIC / Single-IP deployments work well in public cloud topologies. In this lab, we connected to the Big-IP over a single IP address to:
+
+1. ssh on tcp port 22 to create an admin account
+2. https on tcp port 8443 for config management
+3. https on tcp 443 to process traffic

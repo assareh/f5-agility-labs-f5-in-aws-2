@@ -4,7 +4,7 @@ Create a Big-IQ Cloud Environment
 In Big-IQ, Applications => Environments => Cloud Environments => Create New Cloud Environment.
 
 - Name: aws
-- Device Tempate: f5-aws
+- Device Template: f5-aws
 - Cloud Provider: aws
 
 AWS Properties

@@ -50,7 +50,7 @@ In the left hand navigation pane, click on Marketplace. Read through the Details
 
 7. Accept all defaults in Step 2: and click Next.
 
-8. Step 3: Select F5 Bot Detection Singatures, Default action "Allow all requests...', click on "Review and create".
+8. Step 3: Select F5 Bot Detection Signatures, Default action "Allow all requests...', click on "Review and create".
 
 .. image:: ./images/6_create_rules.png
   :scale: 50%
@@ -60,14 +60,14 @@ In the left hand navigation pane, click on Marketplace. Read through the Details
 .. image:: ./images/7_review_and_create.png
   :scale: 50%
 
-10. From the AWS Console, navigate to Services => Compute => EC2 => LOAD BALANCING => Load Balancers. Highlight your alb. Confirm the AWS WAF WEb ACL: shows your web acl applied.
+10. From the AWS Console, navigate to Services => Compute => EC2 => LOAD BALANCING => Load Balancers. Highlight your alb. Confirm the AWS WAF Web ACL: shows your web acl applied.
 
 11. Click the copy icon next to the DNS name.
 
 .. image:: ./images/8_web_acl_applied.png
   :scale: 50%
 
-12. Connect from a browser via https to the dns name copied and confirm your application is still up but now protected against Bot Attacks!
+12. Connect from a browser via https to the dns name copied and confirm your application is still up but now protected against Bot Attacks.
 
 .. image:: ./images/9_alb_demo_site.png
   :scale: 50%

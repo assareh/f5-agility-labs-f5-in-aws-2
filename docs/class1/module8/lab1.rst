@@ -40,7 +40,7 @@ Click "Save & Close"
 .. image:: ./images/5_change_admin_pass.png
   :scale: 50%
 
-Now you can explore the the Service Catalog. Look at the two AWS specific serives at the top of the list. We will deploy "Default-AWS-f5-HTTPS-WAF-lb-template" in a future lab task.
+Now you can explore the Service Catalog. Look at the two AWS specific services at the top of the list. We will deploy "Default-AWS-f5-HTTPS-WAF-lb-template" in a future lab task.
 
 .. image:: ./images/6_explore_service_catalog.png
   :scale: 50%

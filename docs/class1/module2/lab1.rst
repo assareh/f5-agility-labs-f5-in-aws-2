@@ -27,12 +27,12 @@ Explore the F5 / AWS lab environment
 
 3. Navigate to Services => Management Tools => CloudFormation. In the search field type your user account name (i.e user99). You should see your CloudFormation deployment details.
 
-- Click the Events tab. The F5 CloudFormation template records every succesfull or failed event here. Look for the final "CREATE_COMPLETE" at the top. This indicates all went well.
+- Click the Events tab. The F5 CloudFormation template records every successful or failed event here. Look for the final "CREATE_COMPLETE" at the top. This indicates all went well.
 
 .. image:: ./images/2_cft_events.png
   :scale: 50%
 
-- Click on the Parameters tab. We used terraform to stuff all of the necesary parameters into the CloudFormation template. Here you can see the CloudFormation parameter name and value provided.
+- Click on the Parameters tab. We used Terraform to stuff all of the necessary parameters into the CloudFormation template. Here you can see the CloudFormation parameter name and value provided.
 
 .. image:: ./images/3_cft_parameters.png
   :scale: 50%
@@ -42,7 +42,7 @@ Explore the F5 / AWS lab environment
 .. image:: ./images/5_cft_resources.png
   :scale: 50%
 
-- Click on the Resources tab. Here we see a map (resource type to unqique id) of all the AWS resources that were deployed from the CloudFormation template.
+- Click on the Resources tab. Here we see a map (resource type to unique id) of all the AWS resources that were deployed from the CloudFormation template.
 
 .. image:: ./images/5_cft_resources.png
   :scale: 50%
@@ -52,7 +52,7 @@ Explore the F5 / AWS lab environment
 .. image:: ./images/6_aws_console_search_filter.png
   :scale: 50%
 
-5. A single Big-IP Virtual Edition is running on an AWS m4.xlarge intance. Highlight your Big-IP, expand the "Description" tab below. Your instance details are here including:
+5. A single Big-IP Virtual Edition is running on an AWS m4.xlarge instance. Highlight your Big-IP, expand the "Description" tab below. Your instance details are here including:
 
    - Instance type
    - Elastic IP
@@ -66,7 +66,7 @@ Explore the F5 / AWS lab environment
 
 .. attention::
 
-   We deployed a single-NIC Big-IP. A curious difference from traditional datacenter two and three NIC deployments is that single-NIC cloud instances will often share the same IP address for management, self-ip and virtual server. In our deployment: tcp 22 to ssh to the self-ip for management, tcp 8443 to https to the config utility for management, and tcp 80, 443 will evenutally be the virtual server / listener for http/https application traffic.
+   We deployed a single-NIC Big-IP. A curious difference from traditional datacenter two and three NIC deployments is that single-NIC cloud instances will often share the same IP address for management, self-ip and virtual server. In our deployment: tcp 22 to ssh to the self-ip for management, tcp 8443 to https to the config utility for management, and tcp 80, 443 will eventually be the virtual server / listener for http/https application traffic.
 
 6.  Cloud-init. Version 13 of Big-IP supports cloud-init. Right click on BIGIP1 => Instance Settings => View/Change User Data. Cloud-init is the industry standard way to inject commands into an F5 cloud image to automate all aspects of the on-boarding process: https://cloud-init.io/.
 
@@ -75,7 +75,7 @@ Explore the F5 / AWS lab environment
 
 7. Services => Compute => EC2 => LOAD BALANCING => Load Balancers. In the search filter enter your username. You should see two load balancers. One named tf-alb-\* is your newly created AWS application load balancer. Highlight the 'Description' tab. Note:
 
-- Scheme: internate-facing
+- Scheme: internet-facing
 - Type: application
 - AWS WAF Web ACL: has no web acl applied.
 
@@ -101,7 +101,7 @@ Explore the F5 / AWS lab environment
 
 .. attention::
 
-   There are two separate enviornments in this lab. Your simulated on-premises datacenter is hosted in Ravello and consists of:
+   There are two separate environments in this lab. Your simulated on-premises datacenter is hosted in Ravello and consists of:
 
    - Big-IP
    - Big-IQ
@@ -111,7 +111,7 @@ Explore the F5 / AWS lab environment
 
    Your AWS environment is built when you run `terraform apply` and destroyed when you run `terraform destroy`. Your on-premises datacenter has been assigned 10.1.0.0/16 to not conflict with your AWS environment which has been assigned 10.0.0.0/16.
 
-9. From the VPC Dashboard, Click on "Virtual Private Gateway" in the left-hand navigation pane. Enter your username in the search filter (i.e. user99). A virtual Private Gateway has been created and attached to your VPC. We will later use this VPN Gateway to create and IPSec tunnel between our on-premises environment and our AWS VPC.
+9. From the VPC Dashboard, Click on "Virtual Private Gateway" in the left-hand navigation pane. Enter your username in the search filter (i.e. user99). A virtual Private Gateway has been created and attached to your VPC. We will later use this Virtual Private Gateway to create an IPSec tunnel between our on-premises environment and our AWS VPC.
 
 .. image:: ./images/13_vpn_gateway.png
   :scale: 50%

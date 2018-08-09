@@ -1,7 +1,7 @@
 Explore Big-IP VE Virtual Server Changes
 ----------------------------------------
 
-blablabla yabba dabba doo
+Review the virtual server and WAF policy deployed from Big-IQ as part of the app2 service scaling group.
 
 .. image:: ./images/11_virtual_server.png
   :scale: 50%

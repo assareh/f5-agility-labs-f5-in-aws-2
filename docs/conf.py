@@ -64,7 +64,7 @@ if 'github_repo' in locals() and len(github_repo) > 0:
 .. |repoinfo| replace:: The content contained here leverages a full DevOps CI/CD
               pipeline and is sourced from the GitHub repository at %s.
               Bugs and Requests for enhancements can be made by
-              opening an Issue within the repository.
+              opening an issue within the repository.
 """ % (github_repo)
 else:
     rst_prolog += ".. |repoinfo| replace:: \ \n"

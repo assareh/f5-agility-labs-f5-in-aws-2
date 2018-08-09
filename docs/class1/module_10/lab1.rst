@@ -6,6 +6,8 @@ Autoscaling based on a combination of high cpu or throughput is a good way to sc
 .. image:: ./images/1_ab_test_app.png
   :scale: 50%
 
+From the Super-NetOps terminal, generate some traffic to the example app2 application. **Replace x.x.x.x with the public IP address of your app2 application.**
+
 .. code-block:: bash
 
    base64 /dev/urandom | head -c 3000 > payload

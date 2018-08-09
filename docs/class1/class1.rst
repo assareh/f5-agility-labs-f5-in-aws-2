@@ -3,7 +3,7 @@ Class - |classname|
 
 This class covers the following topics:
 
-- Deploying AWS environments with CloudFormation Templates and Terraform
+- Deploying AWS Environments with CloudFormation Templates and Terraform
 - F5 Networks WAF Rules for AWS WAF
 - Going beyond native tools to ensure applications are fast, secure and available
 - Declarative interface for managing F5 Networks application services
