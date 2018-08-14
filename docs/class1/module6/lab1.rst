@@ -173,7 +173,7 @@ Create a route so bigip1 knows to route all traffic destined to AWS 10.0.0.0/16 
 .. image:: ./images/22_networks_routes_aws-vpn_part2.png
   :scale: 50%
 
-From the VPC Dashboard, in the left-hand navigation pane, click on VPN Connections. Your userXX should still be in the search field, if not, enter your userXX in the search field. You will see the VPN Connection you just created in state "Pending". Click the "Status" tab. One of your tunnels is now Status: UP.
+From the VPC Dashboard, in the left-hand navigation pane, click on VPN Connections. Your userXX should still be in the search field, if not, enter your userXX in the search field. You will see the VPN Connection you just created in state "Pending". Click the "Tunnel Details" tab. One of your tunnels is now Status: UP.
 
 .. image:: ./images/23_aws_f5_tunnel_up.png
   :scale: 50%
