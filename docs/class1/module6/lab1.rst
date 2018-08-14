@@ -78,7 +78,7 @@ Create VPN Connection Succeeded.
 .. image:: ./images/8_create_vpn_connection_3.png
   :scale: 50%  
 
-From the VPC Dashboard, in the left-hand navigation pane, click on VPN Connections. Your userXX should still be in the search field, if not, enter your userXX in the search field. You will see the VPN Connection you just created in state "Pending". Click the "Status" tab. Both tunnels are status: DOWN.
+From the VPC Dashboard, in the left-hand navigation pane, click on VPN Connections. Your userXX should still be in the search field, if not, enter your userXX in the search field. You will see the VPN Connection you just created in state "Pending". Click the "Tunnel Details" tab. Both tunnels are status: DOWN.
 
 .. image:: ./images/9_create_vpn_connection_4.png
   :scale: 50%  
