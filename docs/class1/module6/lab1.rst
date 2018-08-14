@@ -168,7 +168,7 @@ Change NAT Traversal to "On".
 .. image:: ./images/20_ipsec_ike_peer1-nat-t.png
   :scale: 50%
 
-Create a route so bigip1 knows to route all traffic destined to AWS 10.0.0.0/16 via the IPSec tunnel. Network => Routers => aws-vpn. The aws-vpn route exists, change the VLAN / Tunnel to tunnel-vpn-xxxxxxxx-0. Update.
+Create a route so bigip1 knows to route all traffic destined to AWS 10.0.0.0/16 via the IPSec tunnel. Network => Routes => aws-vpn. The aws-vpn route exists, change the VLAN / Tunnel to tunnel-vpn-xxxxxxxx-0. Update.
 
 .. image:: ./images/22_networks_routes_aws-vpn_part2.png
   :scale: 50%
